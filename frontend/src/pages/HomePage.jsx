@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductListings from "../components/ProductListings";
 
-const Home = ({productsEdited, productAdded}) => {
+const Home = ({productEdited, productAdded}) => {
   const [products, setProducts] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
@@ -23,7 +23,7 @@ const Home = ({productsEdited, productAdded}) => {
       }
     };
     fetchProducts();
-  }, [productsEdited, productAdded]);
+  }, [productEdited, productAdded]);
 
   return (
     <div className="home">

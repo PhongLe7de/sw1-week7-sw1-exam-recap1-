@@ -16,7 +16,8 @@ const App = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     return user && user.token ? true : false;
   });
-
+  const [productAdded, setProductAdded] =  useState(false)
+  const [productEdited, setProductEdited] =  useState(false)
 
   return (
     <div className="App">
@@ -24,15 +25,15 @@ const App = () => {
       <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
         <div className="content">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home productAdded={productAdded} productEdited={productEdited}/>} />
             <Route path="/products/:id" element={<ProductPage isAuthenticated={isAuthenticated} />} />
             <Route
               path="/products/add-product"
-              element={isAuthenticated ? <AddProductPage /> : <Navigate to="/signup" />}
+              element={isAuthenticated ? <AddProductPage setProductAdded={setProductAdded}/> : <Navigate to="/signup" />}
             />
             <Route
               path="/edit-product/:id"
-              element={isAuthenticated ? <EditProductPage /> : <Navigate to="/signup" />}
+              element={isAuthenticated ? <EditProductPage setProductEdited={setProductEdited} /> : <Navigate to="/signup" />}
             />
             <Route
               path="/signup"
