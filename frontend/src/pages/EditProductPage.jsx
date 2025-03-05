@@ -21,7 +21,7 @@ const EditProductPage = () => {
 
   const updateProduct = async (product) => {
     try {
-      const res = await fetch(`/api/products/${id}`, {
+      const res = await fetch(`https://sw1-week7-sw1-exam-recap1.onrender.com/api/products/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const EditProductPage = () => {
     const fetchProduct = async () => {
       try {
 
-        const res = await fetch(`/api/products/${id}`);
+        const res = await fetch(`https://sw1-week7-sw1-exam-recap1.onrender.com/api/products/${id}`);
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }

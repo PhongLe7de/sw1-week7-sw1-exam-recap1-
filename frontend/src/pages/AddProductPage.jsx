@@ -20,7 +20,7 @@ const AddProductPage = ({setProductAdded}) => {
   const addProduct = async (newProduct) => {
     try {
       console.log("Adding product:", newProduct);
-      const res = await fetch("/api/products", {
+      const res = await fetch("https://sw1-week7-sw1-exam-recap1.onrender.com/api/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

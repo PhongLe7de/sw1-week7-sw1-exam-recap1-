@@ -10,7 +10,7 @@ const ProductPage = () => {
 
   const deleteProduct = async (id) => {
     try {
-      const res = await fetch(`/api/products/${id}`, {
+      const res = await fetch(`https://sw1-week7-sw1-exam-recap1.onrender.com/api/products/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) {
@@ -25,7 +25,7 @@ const ProductPage = () => {
     const fetchProduct = async () => {
       try {
         console.log("id: ", id);
-        const res = await fetch(`/api/products/${id}`);
+        const res = await fetch(`https://sw1-week7-sw1-exam-recap1.onrender.com/api/products/${id}`);
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }

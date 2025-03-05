@@ -20,7 +20,6 @@ const signupUser = async (req, res) => {
     role,
     bio
   } = req.body;
-  console.log(req.body);
   try {
     if (
       !name ||

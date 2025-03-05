@@ -9,7 +9,7 @@ const Home = ({productEdited, productAdded}) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("api/products");
+        const res = await fetch("https://sw1-week7-sw1-exam-recap1.onrender.com/api/products");
         if (!res.ok) {
           throw new Error("could not fetch the data for that resource");
         }
