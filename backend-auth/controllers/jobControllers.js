@@ -1,4 +1,4 @@
-const Job = require("../models/jobModel");
+const Job = require("../models/productModel");
 const mongoose = require("mongoose");
 
 //GET / jobs;
