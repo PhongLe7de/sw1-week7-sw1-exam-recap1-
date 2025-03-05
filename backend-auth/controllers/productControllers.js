@@ -1,7 +1,7 @@
 const Product = require("../models/productModel");
 const mongoose = require("mongoose");
 
-//GET / products;
+//GET /products;
 const getAllProducts = async (req, res) => {
   try {
     const Products = await Product.find({}).sort({ createdAt: -1 });
@@ -92,5 +92,5 @@ module.exports = {
   getProductById,
   createProduct,
   updateProduct,
-  deleteProduc,
+  deleteProduct,
 };
