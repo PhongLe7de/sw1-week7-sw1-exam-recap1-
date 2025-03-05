@@ -83,11 +83,7 @@ const AddProductPage = ({setProductAdded}) => {
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           />
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option type="text" value="Electronics">Electronics</option>
-          <option type="text" value="Clothing">Clothing</option>
-          <option  type="text" value="Furniture">Furniture</option>
-        </select> 
+
 
         <label>Product Description:</label>
         <textarea

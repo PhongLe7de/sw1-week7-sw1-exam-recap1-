@@ -51,10 +51,6 @@ const ProductPage = () => {
     navigate("/");
   };
 
-  const onEdit = (productId) => {
-    console.log(productId);
-  };
-
   return (
     <div className="product-preview">
       {loading ? (
@@ -66,9 +62,9 @@ const ProductPage = () => {
           <h2>{product.title}</h2>
           <p>Type: {product.type}</p>
           <p>Description: {product.description}</p>
-          <p>Company: {product.company.name}</p>
-          <p>Email: {product.company.contactEmail}</p>
-          <p>Phone: {product.company.contactPhone}</p>
+          <p>Company: {product.supplier.name}</p>
+          <p>Email: {product.supplier.contactEmail}</p>
+          <p>Phone: {product.supplier.contactPhone}</p>
           <button onClick={() => onDeleteClick(product._id)}>delete</button>
 
           <button>

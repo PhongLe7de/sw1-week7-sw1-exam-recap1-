@@ -1,146 +1,176 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-const EditJobPage = ({setJobEdited}) => {
-  const [job, setJob] = useState(null); 
-  const [loading, setLoading] = useState(true); 
-  const [error, setError] = useState(null); 
+const EditProductPage = () => {
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { id } = useParams();
 
-  const [title, setTitle] = useState("");
-  const [type, setType] = useState("");
-  const [description, setDescription] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [contactEmail, setContactEmail] = useState("");
-  const [contactPhone, setContactPhone] = useState("");
+    const [title, setTitle] = useState("");
+    const [category, setCategory] = useState("");
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState("");
+    const [stockQuantity, setStockQuantity] = useState("");
+    const [supplierName, setSupplierName] = useState("");
+    const [contactEmail, setContactEmail] = useState("");
+    const [contactPhone, setContactPhone] = useState("");
+    const [rating, setRating] = useState("");
 
   const navigate = useNavigate();
 
-  const updateJob = async (job) => {
+  const updateProduct = async (product) => {
     try {
-      const res = await fetch(`/api/jobs/${job.id}`, {
+      const res = await fetch(`/api/products/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(job),
+        body: JSON.stringify(product),
       });
-      if (!res.ok) throw new Error("Failed to update job");
+      if (!res.ok) throw new Error("Failed to update product");
       return res.ok;
     } catch (error) {
-      console.error("Error updating job:", error);
+      console.error("Error updating product:", error);
       return false;
     }
   };
 
-  
+
   useEffect(() => {
-    const fetchJob = async () => {
+    const fetchProduct = async () => {
       try {
-        const res = await fetch(`/api/jobs/${id}`);
+
+        const res = await fetch(`/api/products/${id}`);
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }
         const data = await res.json();
-        setJob(data); 
+        setProduct(product);
         setTitle(data.title);
-        setType(data.type);
+        setCategory(data.category);
         setDescription(data.description);
-        setCompanyName(data.company.name);
-        setContactEmail(data.company.contactEmail);
-        setContactPhone(data.company.contactPhone);
+        setPrice(data.price);
+        setStockQuantity(data.stockQuantity)
+        setSupplierName(data.supplier.name)
+        setContactEmail(data.supplier.contactEmail);
+        setContactPhone(data.supplier.contactPhone);
+        setRating(data.supplier.rating);
       } catch (error) {
-        console.error("Failed to fetch job:", error);
+        console.error("Failed to fetch product:", error);
         setError(error.message);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
-    fetchJob();
+    fetchProduct();
   }, [id]);
 
-  
+
   const submitForm = async (e) => {
     e.preventDefault();
 
-    const updatedJob = {
+    const updatedProduct = {
       id,
       title,
-      type,
+      category,
       description,
-      company: {
-        name: companyName,
+      price,
+      stockQuantity,
+      supplier: {
+        name: supplierName,
         contactEmail,
         contactPhone,
+        rating,
       },
     };
-
-    const success = await updateJob(updatedJob);
+    console.log(updatedProduct);
+    const success = await updateProduct(updatedProduct);
     if (success) {
-      setJobEdited(true)
-      navigate(`/jobs/${id}`);
+      navigate(`/products/${id}`);
     } else {
-      
+    throw new Error("Network response was not ok");
     }
   };
 
-  return (
-    <div className="create">
-      <h2>Update Job</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
-        <form onSubmit={submitForm}>
-          <label>Job title:</label>
-          <input
-            type="text"
-            required
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <label>Job type:</label>
-          <select value={type} onChange={(e) => setType(e.target.value)}>
-            <option value="Full-Time">Full-Time</option>
-            <option value="Part-Time">Part-Time</option>
-            <option value="Remote">Remote</option>
-            <option value="Internship">Internship</option>
-          </select>
+return (
+  <div className="create">
+    <h2>Update Product</h2>
 
-          <label>Job Description:</label>
-          <textarea
-            required
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
-          <label>Company Name:</label>
-          <input
-            type="text"
-            required
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
-          />
-          <label>Contact Email:</label>
-          <input
-            type="text"
-            required
-            value={contactEmail}
-            onChange={(e) => setContactEmail(e.target.value)}
-          />
-          <label>Contact Phone:</label>
-          <input
-            type="text"
-            required
-            value={contactPhone}
-            onChange={(e) => setContactPhone(e.target.value)}
-          />
-          <button>Update Job</button>
-        </form>
-      )}
-    </div>
-  );
+    {loading && <p>Loading product details...</p>}
+    {error && <p style={{ color: "red" }}>Error: {error}</p>}
+
+    {!loading && !error && (
+      <form onSubmit={submitForm}>
+        <label>Product title:</label>
+        <input
+          type="text"
+          required
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <label>Product category:</label>
+        <input
+          type="text"
+          required
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        />
+        <label>Product Description:</label>
+        <textarea
+          required
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></textarea>
+        <label>Price:</label>
+        <input
+          type="number"
+          required
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+        <label>Stock Quantity:</label>
+        <input
+          type="number"
+          required
+          value={stockQuantity}
+          onChange={(e) => setStockQuantity(e.target.value)}
+        />
+        <label>Supplier name:</label>
+        <input
+          type="text"
+          required
+          value={supplierName}
+          onChange={(e) => setSupplierName(e.target.value)}
+        />
+        <label>Contact email:</label>
+        <input
+          type="text"
+          required
+          value={contactEmail}
+          onChange={(e) => setContactEmail(e.target.value)}
+        />
+        <label>Contact Phone:</label>
+        <input
+          type="text"
+          required
+          value={contactPhone}
+          onChange={(e) => setContactPhone(e.target.value)}
+        />
+        <label>Rating :</label>
+        <input
+          type="number"
+          required
+          value={rating}
+          onChange={(e) => setRating(e.target.value)}
+        />
+        <button type="submit">Update Product</button>
+      </form>
+    )}
+  </div>
+);
+
 };
 
-export default EditJobPage;
+export default EditProductPage;
