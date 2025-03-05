@@ -13,6 +13,8 @@ const getAllProducts = async (req, res) => {
 
 // POST /Products
 const createProduct = async (req, res) => {
+  console.log(req.body);
+  
   try {
     const newProduct = await Product.create({ ...req.body });
     res.status(201).json(newProduct);
